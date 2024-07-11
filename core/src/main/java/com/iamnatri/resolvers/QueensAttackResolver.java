@@ -28,106 +28,98 @@ public class QueensAttackResolver {
         // var moves = {'n': n-r_q, 's': r_q-1}
         //implementing the sum
 
+        int counter = 0;
+        if (k>0)
+            counter = getSquaresBlock(n,r_q, c_q, obstacles, k);
+            
+        int queenMoves = getQueensMoves(n, r_q, c_q);
 
-        for(int i = 0; i < k; i++){
-            obstacles.get(i);
-            String s = getObstacleRelativeLocation( r_q, c_q, obstacles.get(i).get(0), obstacles.get(i).get(1));
-            int result = getSquaresBlock(n,r_q, c_q, obstacles.get(i));
-            System.out.println("Squares bloqueados");
-            System.out.println(s);
-            System.out.println(result);
 
-            // get cells the block(i) blocks
+
+        
+        
+        return queenMoves - counter;
+    }
+    static int getSquaresBlock(int n,int queenY, int queenX, List<List<Integer>> obstacles, int k){
+        Set<String> blockSquare = new HashSet<>(); 
+        for(int j = 0; j < k; j++){
+            List<Integer> block = obstacles.get(j);
+            int blockY = block.get(0);
+            int blockX =   block.get(1);
+            String relPos =  getObstacleRelativeLocation(queenY, queenX, blockY, blockX);
             
 
-        }
-
-
-
-        int s = getQueensMoves(n, r_q, c_q);
-
-
-        
-        
-        return s;
-    }
-    static int getSquaresBlock(int n,int queenY, int queenX,List<Integer> block){
-        int blockY = block.get(0);
-        int blockX =   block.get(1);
-        String relPos =  getObstacleRelativeLocation(queenY, queenX, blockY, blockX);
-        Set<String> blockSquare = new HashSet<>(); 
-
-        if (relPos == "U"){
-            for (int i = blockY; i<=n; i ++ ){
-                blockSquare.add(String.format("%d,%d", blockX, i));
-            }
-            return blockSquare.size();
-        }
-        if (relPos =="D"){
-            for (int i = 1; i<= blockY; i ++ ){
-                blockSquare.add(String.format("%d,%d", blockX, i));
-            }
-            return blockSquare.size();
-        }
-        if (relPos == "L"){
-            for (int i = 1; i<=blockX; i++){
-                blockSquare.add(String.format("%d,%d", i, blockY));
-            }
-            return blockSquare.size();
-        }
-        if(relPos == "R"){
-            for (int i = blockX; i<=n; i ++ ){
-                blockSquare.add(String.format("%d,%d", i, blockY));
-            }
-            return blockSquare.size();
-        }
-        if(relPos == "UR"){
-            int dif = blockY - queenY;
-            int dif2 = blockX - queenX;
-            if (dif == dif2){
-                while(queenY+dif <= n && queenX+dif <= n){
-                    blockSquare.add(String.format("%d,%d", queenX+dif, queenY+dif));
-                    dif++;
+            if (relPos == "U"){
+                for (int i = blockY; i<=n; i ++ ){
+                    blockSquare.add(String.format("%d,%d", blockX, i));
                 }
+                continue;
             }
-            return blockSquare.size();
-        }
-        if(relPos == "UL"){
-            int dif = blockY - queenY;
-            int dif2 = queenX - blockX;
-            if (dif == dif2){
-                while (queenY+dif <= n && queenX-dif >= 1){
-                    blockSquare.add(String.format("%d,%d", queenX-dif, queenY+dif));
-                    dif++;
+            if (relPos =="D"){
+                for (int i = 1; i<= blockY; i ++ ){
+                    blockSquare.add(String.format("%d,%d", blockX, i));
                 }
+                continue;
             }
-            return blockSquare.size();
-        }
-        if(relPos == "DR"){
-            int dif = queenY - blockY;
-            int dif2 = blockX - queenX;
-            if (dif == dif2){
-                while(queenY-dif >= 1 && queenX+dif <= n){
-                    blockSquare.add(String.format("%d,%d", queenX+dif, queenY-dif));
-                    dif++;
+            if (relPos == "L"){
+                for (int i = 1; i<=blockX; i++){
+                    blockSquare.add(String.format("%d,%d", i, blockY));
                 }
+                continue;
             }
-            return blockSquare.size();
-        }
-        if(relPos == "DL"){
-            int dif = queenY - blockY;
-            int dif2 = queenX - blockX;
-            if (dif == dif2){
-                while(queenY-dif >= 1 && queenX-dif >= 1){
-                    blockSquare.add(String.format("%d,%d", queenX-dif, queenY-dif));
-                    dif++;
+            if(relPos == "R"){
+                for (int i = blockX; i<=n; i ++ ){
+                    blockSquare.add(String.format("%d,%d", i, blockY));
                 }
+                continue;
             }
-            return blockSquare.size();
+            if(relPos == "UR"){
+                int dif = blockY - queenY;
+                int dif2 = blockX - queenX;
+                if (dif == dif2){
+                    while(queenY+dif <= n && queenX+dif <= n){
+                        blockSquare.add(String.format("%d,%d", queenX+dif, queenY+dif));
+                        dif++;
+                    }
+                }
+                continue;
+            }
+            if(relPos == "UL"){
+                int dif = blockY - queenY;
+                int dif2 = queenX - blockX;
+                if (dif == dif2){
+                    while (queenY+dif <= n && queenX-dif >= 1){
+                        blockSquare.add(String.format("%d,%d", queenX-dif, queenY+dif));
+                        dif++;
+                    }
+                }
+                continue;
+            }
+            if(relPos == "DR"){
+                int dif = queenY - blockY;
+                int dif2 = blockX - queenX;
+                if (dif == dif2){
+                    while(queenY-dif >= 1 && queenX+dif <= n){
+                        blockSquare.add(String.format("%d,%d", queenX+dif, queenY-dif));
+                        dif++;
+                    }
+                }
+                continue;
+            }
+            if(relPos == "DL"){
+                int dif = queenY - blockY;
+                int dif2 = queenX - blockX;
+                if (dif == dif2){
+                    while(queenY-dif >= 1 && queenX-dif >= 1){
+                        blockSquare.add(String.format("%d,%d", queenX-dif, queenY-dif));
+                        dif++;
+                    }
+                }
+                continue;
 
+            }
         }
-        return 0;
-        
+        return blockSquare.size();       
 
     }
 
@@ -158,9 +150,9 @@ public class QueensAttackResolver {
      */
     static String getObstacleRelativeLocation( int queenY, int queenX,int blockY, int blockX){
         /*
-         * @IamNatri
+         * 
          * Returns 
-         * U for up, D for down, L for left, R for right, UL for upper left, DL for down left etc 
+         * U for up, D for down, L for left, R for right, UL for upper left, DL for down left  
          */
 
         if (queenX > blockX && queenY > blockY){
