@@ -1,7 +1,8 @@
-package com.iamnatri.resolvers;
+package com.iamnatri.resolvers.queensattack;
 
 import org.junit.jupiter.api.Test;
 
+import com.iamnatri.resolvers.queensattack.QueensAttackResolver;
 
 import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;

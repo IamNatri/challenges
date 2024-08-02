@@ -1,4 +1,4 @@
-package com.iamnatri.resolvers;
+package com.iamnatri.resolvers.queensattack;
 
 import java.util.HashSet;
 import java.util.List;
@@ -9,6 +9,8 @@ import java.util.Set;
  * The QueensAttackResolver class provides a method to calculate the number of squares a queen can attack on a chessboard.
  * ref https://www.youtube.com/watch?v=glnkdCg_kTQ
  *   https://www.hackerrank.com/challenges/queens-attack-2/forum/comments/276582
+ * 
+ *  O(n)
  * 
  */
 public class QueensAttackResolver {
@@ -33,13 +35,10 @@ public class QueensAttackResolver {
             counter = getSquaresBlock(n,r_q, c_q, obstacles, k);
             
         int queenMoves = getQueensMoves(n, r_q, c_q);
-
-
-
-        
         
         return queenMoves - counter;
     }
+
     static int getSquaresBlock(int n,int queenY, int queenX, List<List<Integer>> obstacles, int k){
         Set<String> blockSquare = new HashSet<>(); 
         for(int j = 0; j < k; j++){
